@@ -1,0 +1,6 @@
+{
+  "name": "Lotus Rental 22 - Sistem Faktur",
+  "description": "Sistem entri faktur dan pengiriman otomatis rental motor Lotus Rental 22 Labuan Bajo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
