@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {initialForm,newItem,invoiceTotal,validateForm,payloadFor} from '../src/billing';
+const f=initialForm();Object.assign(f,{nama:'Test',email:'test@example.com',noHp:'0812345678'});
+f.items=[{...newItem(),deskripsi:'Scoopy',harga:100000,durasi:2},{...newItem(),deskripsi:'City Tour',harga:1200000,basis:'paket',durasi:99}];
+f.biayaTambahan=[{id:'x',deskripsi:'Antar',harga:20000,qty:1}];
+assert.equal(invoiceTotal(f),1420000);assert.equal(validateForm(f),null);assert.equal(payloadFor(f).items[1].durasi,1);
+const unpaidKey=JSON.stringify(payloadFor(f));f.statusPembayaran='lunas';assert.equal(invoiceTotal(f),1420000);assert.notEqual(JSON.stringify(payloadFor(f)),unpaidKey);assert.equal(payloadFor(f).statusPembayaran,'lunas');
+assert.equal(initialForm().bahasaInvoice,'id');const indoKey=JSON.stringify(payloadFor(f));f.bahasaInvoice='en';assert.notEqual(JSON.stringify(payloadFor(f)),indoKey);assert.equal(invoiceTotal(f),1420000);
+f.items[0].durasi=3;assert.equal(invoiceTotal(f),1520000);
+f.items[1].basis='orang';f.items[1].harga=300000;f.items[1].qty=4;assert.equal(invoiceTotal(f),1520000);
+f.items[1].basis='perjalanan';f.items[1].harga=150000;f.items[1].qty=2;assert.equal(invoiceTotal(f),620000);
+f.items[1].qty=-1;assert.notEqual(validateForm(f),null);
+console.log('PASS: mixed services, daily duration, per-person and per-trip rates, invalid quantity, normalized payload.');

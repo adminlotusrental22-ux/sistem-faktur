@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Lotus Rental 22 — Invoice Rental, Tour & Transportasi
 
-# Run and deploy your AI Studio app
+Form invoice multi-layanan dengan dasar tarif harian, paket, perjalanan, orang, dan unit sekali. Tarif dan biaya tambahan dapat diedit. Alur: buat PDF → preview → kirim email.
 
-This contains everything you need to run your app locally.
+## Lokal
 
-View your app in AI Studio: https://ai.studio/apps/0500b898-a49d-4c93-a602-399f5273a8e0
+npm install
+npm run dev
 
-## Run Locally
+Buka http://127.0.0.1:3000/. Mode demo lokal tidak menghubungi GAS atau mengirim email. Isi data dan layanan yang ingin dicoba, lalu pilih Buat & Preview PDF.
 
-**Prerequisites:**  Node.js
+## Pemeriksaan
 
+npm run lint
+npm run build
+node scripts/check-gas.cjs
+npx tsx scripts/check-billing.ts
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Panduan deployment GAS versi 3 dan pengujian operasional: PANDUAN-UPDATE.md. API Gemini tidak diperlukan untuk sistem invoice ini.
